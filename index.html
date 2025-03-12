@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Random Message & Image with Copyable Link</title>
   <style>
-    /* Base styles for body and layout */
+    /* Base styles from your original code */
     body {
       margin: 0;
       padding: 0;
@@ -14,107 +14,252 @@
       align-items: center;
       justify-content: center;
       font-family: "Times New Roman";
-      color: #FFF;
       background: #333;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 0.5s ease-in-out;
+      color: #FFF;
     }
-    /* Styling the message container */
     #message {
-      font-size: 50px;
+      font-size: 36px;
       text-align: center;
-      cursor: pointer;
-      user-select: none;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-      background: rgba(0,0,0,0.5);
-      padding: 20px;
-      border-radius: 10px;
       margin-top: 20px;
     }
-    /* Styling the image; max-width increased to double its base size */
     img {
-      max-width: 450px !important;
+      max-width: 300px;
       height: auto;
       border-radius: 8px;
       display: block;
       margin-bottom: 10px;
     }
-    /* Styling for the copy-friendly link container */
+    /* A copy-friendly container for the link */
     #linkContainer {
       font-size: 16px;
       background: #444;
       padding: 10px;
       border-radius: 4px;
-      cursor: text;
-      user-select: all;
+      cursor: text; /* Indicates that text can be selected */
+      user-select: all; /* Makes it easy to copy the entire link */
+    }
+  </style>
+  
+  <!-- Additional Style Block: Make images twice the size -->
+  <style>
+    img {
+      max-width: 450px !important;
+    }
+  </style>
+  
+  <!-- Additional CSS snippet from your extra code -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Times New Roman";
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.5s ease-in-out;
+    }
+    #message {
+      font-size: 50px;
+      color: #FFF;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <!-- Image element with an onerror handler -->
-  <img id="messageImage" src="" alt="Random Image" onerror="handleImageError(this)">
-  <!-- Div to display the random message -->
+  <!-- The image is displayed as a normal inline element -->
+  <img id="messageImage" src="" alt="">
+  <!-- Text message displayed below the image -->
   <div id="message"></div>
-  <!-- Div for a copyable link (if provided in your content objects) -->
+  <!-- Link container (referenced in your JS) -->
   <div id="linkContainer"></div>
   
   <script>
-    // Array of content objects – add or update these as needed.
+    // Array of objects—update these values by copying and pasting new URLs if needed.
     const contents = [
       { 
         message: "I love your style.",
-        image: "https://lh3.googleusercontent.com/efe4_gAIIzzVWYnQd38nA0qMAyCk61jfmWF2RwkE4vEbwPRJJpcwwKPjjkQc0HTPywSIAV62gmrM1LDGIBE9mGw9_dR-LwxU2fxezptmHlucN3WD5KmraKng9zhjHUkg-g=w1280"
+        image:"https://lh3.googleusercontent.com/efe4_gAIIzzVWYnQd38nA0qMAyCk61jfmWF2RwkE4vEbwPRJJpcwwKPjjkQc0HTPywSIAV62gmrM1LDGIBE9mGw9_dR-LwxU2fxezptmHlucN3WD5KmraKng9zhjHUkg-g=w1280",
       },
       { 
         message: "I love your voice, your eyes, and your smile.",
-        image: "https://lh3.googleusercontent.com/czJUy5ksXdgKgiSyP5rL_sRzo56rDFwOFEKzj4hu9SL3vuP9GK8C9UH1X178EvSolbQwfIeZI67g2w9ABnYXIcnNW5ZYiEj5pq8I-K0zrqA_Tq4CZr3nBdu1I2tY-BNQNA=w1280"
+        image:"https://lh3.googleusercontent.com/czJUy5ksXdgKgiSyP5rL_sRzo56rDFwOFEKzj4hu9SL3vuP9GK8C9UH1X178EvSolbQwfIeZI67g2w9ABnYXIcnNW5ZYiEj5pq8I-K0zrqA_Tq4CZr3nBdu1I2tY-BNQNA=w1280",
       },
       { 
         message: "I love how you want the best for me.",
-        image: "https://lh3.googleusercontent.com/rduw54QoceKOPnsxMoDNwvXNEzJhlQqoQz6po4Wq-FO1WSn4yHoDu_UuBoonIL38dKvGtYgk6A2zHzPIjc-fS7Jv1d_R_mVBBH8sdbHEGY5Oj5hub9xs4-zWrXvfhI2CBg=w1280"
+        image: "https://lh3.googleusercontent.com/rduw54QoceKOPnsxMoDNwvXNEzJhlQqoQz6po4Wq-FO1WSn4yHoDu_UuBoonIL38dKvGtYgk6A2zHzPIjc-fS7Jv1d_R_mVBBH8sdbHEGY5Oj5hub9xs4-zWrXvfhI2CBg=w1280",
+      },
+      { 
+        message: "I love how open minded and caring you are.",
+        image: "https://lh5.googleusercontent.com/0g0iEeP_-PGfz1Ku8xexMizPlT2D472oCp_8Vp6ILzyezL5pJ_BNH1loocDBGGfMuWGABrf-d1IFeopjUULgwH40593R1I6Iypgqmfys1bGsXKArSy-_QIrvqsz4vYzg2Q=w1280",
+      },
+      { 
+        message: "I love how patient you are with me and how understanding of a person you are.",
+        image:"https://lh3.googleusercontent.com/7Uts8H6kMi5BoqQ_aPYxDPuAqi5tko398U5ctgigr5SJCvYk-sokCEuaeXBdgqS2iYbXKv-CvY8G2aJp4iMaeQhZYEM5RXhUMl-QPsqsByOE5o5_9ltuQcHXL8uDrYjQlw=w1280",
+      },
+      {
+        message: "I love your willingness to put up with me and your eagerness to have fun with me.",
+        image:"https://media.discordapp.net/attachments/823536811062067200/1348122265199448145/Screenshot_20250221-1600142.png?ex=67ce5032&is=67ccfeb2&hm=905aefb596f2366a6aaff95747246e41c0de2f10bd6c2e8407f1a62da8a7488b&=&format=webp&quality=lossless&width=705&height=535",
+      },
+      { 
+        message: "I love your mind and how it works. You always have the best ideas.",
+        image:"https://lh6.googleusercontent.com/8fCxJgvQsFDnviWEppPeyJ4JHW4AtAm4glP8cP6sy-ucGJOdcgoWIRtrXN7LWH4Smh1wpAeX0C6DKPdiEebuh2NgYlacDky3oxIGZ43awGO6NFJ_5CeXLmz12PoJ-L6taA=w1280",
+      },
+      { 
+        message: "I love how you’re always right - and your tolerance with how wrong I can be sometimes.",
+        image: "https://lh5.googleusercontent.com/0bVuiOPQwXQuqqfmAoRT_2dWFmEPqVi4w_EFjTTBDQ0JCbyRaGIYa_pHgYwltIdzHfP9Tqikmtc1hSPhrb06WxcAkrzivqeFRwzIaHVRNRLyqAQ127K6cBPQQzHSEqmW0g=w1280",
+      },
+      { 
+        message: "I love how you’re not ever embarrassed to be yourself. Seeing you be vulnerable makes me comfortable to do the same. You’ve helped me be myself more, too.",
+        image: "https://media.discordapp.net/attachments/823536811062067200/1348122264817893376/Screenshot_20250227-2147592.png?ex=67ce5032&is=67ccfeb2&hm=f5edafb4adc39cd931b38ac1f37a0046bcb32b030bae2552f67e67d787151641&=&format=webp&quality=lossless&width=301&height=535",
+      },
+      { 
+        message: "I love how independent you are. It helps remind me of how strong I can be and what potential I have.",
+        image:"https://lh6.googleusercontent.com/H9wPdLxz6YmXp6DAIXZt_g8_i5RHN-o8NXKajvpWor52sP4M6JN2BovlVdIVx5L3dDSEj1vH0Wy69Tn4FSf4a4nEXmsVD_BSzMnMRWbxPSatZKsmgmGTm7dkeaT6U9_p9g=w1280",
+      },
+      { 
+        message: "I love the fun we have together. We have the best conversations that I’ll never forget.",
+        image:"https://media.discordapp.net/attachments/823536811062067200/1348122264394268732/Screenshot_20250302-2108472.png?ex=67ce5032&is=67ccfeb2&hm=3dba47e36f27f4d6684e82b8f0e2d76450641aa0e3db907a4a83b290fcb169df&=&format=webp&quality=lossless&width=536&height=535",
+      },
+      {
+        message: "I’m so happy that I’ve grown into a better person for you, and you’ve been there with me for every step.",
+        image:"https://lh5.googleusercontent.com/-0mA7jnxkM4vyJqkyLiCkMaOj-eZdo9O76YOqeO5Kt9jHdfmt3jUaGr8rhDoRmB91RZg0nlwptRuvLZIPBN8r7e8YFtLLhEjPFPJUe4wuCd2qUG8UAshlqF4eVFrYOluAg=w1280",
+      },
+      { 
+        message: "I love how you’ll defend me, even if I won’t defend myself.", 
+        image:"https://cdn.discordapp.com/attachments/823536811062067200/1348412533253476453/PXL_20241118_1830555472.jpg?ex=67cf5e88&is=67ce0d08&hm=71b73f3f810774243544ba1e3f6d4076c49855b383c213947ea6702ec15f524b&",
+      },
+      { 
+        message: "You’ve made me more confident in my body, my mind, and my heart, than I’ve ever been in my life.",
+        image: "https://cdn.discordapp.com/attachments/823536811062067200/1348412853043859487/PXL_20241121_2357474532.jpg?ex=67cf5ed4&is=67ce0d54&hm=7c02887b52ece51d220d3f0eee4f3e552b0ca774ecc6776c95008d923cf2396b&",
+      },
+      { 
+        message: "I love how you can forgive me for my mistakes, because people rarely do.",
+        image: "https://cdn.discordapp.com/attachments/823536811062067200/1348413762671214592/Screenshot_20250309-165409.png?ex=67cf5fad&is=67ce0e2d&hm=2d54f916b61fb2f6e798dea136a7bc9ddfa557fd56b46d27be6a24fb4f79a20f&",
+      },
+      { 
+        message: "I love how you make me feel comfortable being weird and nerdy with you. I’ve never been able to do that before and it means the world to me.",
+        image:"https://cdn.discordapp.com/attachments/823536811062067200/1348414412347670658/Screenshot_20250205-0752582.png?ex=67cf6048&is=67ce0ec8&hm=67706ce75058d772e7cfd23b1f4a9a47b0504a996fb86106f26786c709b57dea&",
+      },
+      { 
+        message: "I love how you listen to me even when there’s so many other people talking to you and things going on. It makes me feel really special and heard.",
+        image: "https://cdn.discordapp.com/attachments/823536811062067200/1348414650949046323/Screenshot_20241116-1947052.png?ex=67cf6081&is=67ce0f01&hm=a6cd1a509db2d07e448c9b94a540759b7b07bf556afa017ec0c925ab617791fc&",
+      },
+      { 
+        message: "I love how I can talk forever and you’ll pay attention to every word.",
+        image: "https://cdn.discordapp.com/attachments/823536811062067200/1348417407722717275/Screenshot_20250309-170832.png?ex=67cf6312&is=67ce1192&hm=91e2880dfcb4c1b86544d923320f81ae0885d8b46d0a6d051993ce7e73218a36&",
+      },
+      { 
+        message: "I’m so happy that you’ve worked through everything with me and you’ve never given up on us.",
+        image:"https://cdn.discordapp.com/attachments/823536811062067200/1348417408116985976/Screenshot_20250309-170732.png?ex=67cf6312&is=67ce1192&hm=071c16cf3ac3861855be482be17d71c1aa55dd4b45fe47cafdaa12e7f895ddf8&",
+      },
+      {
+        message: "I love how you don’t mind teaching me the most basic of things - and sharing all of YOUR passions so they can become OURS.",
+        image:"https://cdn.discordapp.com/attachments/823536811062067200/1348417408523698258/Screenshot_20250309-170420.png?ex=67cf6312&is=67ce1192&hm=d852f86d6b2d6dbb5b50001ff333626029f0dca111b0ec3c8ec98b4dfb1bad87&",
+      },
+      { 
+        message: "I love how hard-working and diligent you are. You’ve inspired me to work harder and do things even when I don’t feel like it.",
+        image:"https://cdn.discordapp.com/attachments/823536811062067200/1348417409022693376/Screenshot_20250309-170452.png?ex=67cf6312&is=67ce1192&hm=c266f336ce28f29bd06245f09ebacd8fa9908f6599a03e451b2c629a00465039&",
+      },
+      { 
+        message: "I love how giving you are and how you share things with me. Nobody’s ever done that before.",
+        image: "https://cdn.discordapp.com/attachments/823536811062067200/1348417409572274266/Screenshot_20250309-170554.png?ex=67cf6312&is=67ce1192&hm=1a6da2f7a9f1b9b41240de328a5d472a2568114fd4c596807db64613d00c9bba&",
+      },
+      { 
+        message: "You’ve been my first for so many things - and I wouldn’t have it be any other way.",
+        image: "https://cdn.discordapp.com/attachments/823536811062067200/1348417409933115524/Screenshot_20250309-170709.png?ex=67cf6312&is=67ce1192&hm=3117992a4dd664734fcb3de878b863307919d896c7cfefd4326a62ec0777fb5b&",
+      },
+      { 
+        message: "We can get excited for each other even though it may have nothing to do with us, and I feel like that’s so special.",
+        image:"https://cdn.discordapp.com/attachments/823536811062067200/1348417410180317304/Screenshot_20250309-170618.png?ex=67cf6312&is=67ce1192&hm=fe01bc9da2d4824f2e35730d02b69b5a2d58db76431c52186366c21e557d7f0b&",
+      },
+      { 
+        message: "I can’t thank you enough for always being honest and transparent with me. With how dense I am, it’s beyond helpful and it matters so much to me that we can have those conversations.",
+        image:"https://cdn.discordapp.com/attachments/1308094638963556433/1348459298719662080/IMG_1509.jpg?ex=67cf8a15&is=67ce3895&hm=71f031c492223be3b704866db5699097d6e976f4fade404d3b917be0d3646bb0&",
+      },
+      { 
+        message: "I love how you laugh with me instead of at me. And even when you laugh at me, I can laugh too.",
+        image:"https://lh3.googleusercontent.com/czJUy5ksXdgKgiSyP5rL_sRzo56rDFwOFEKzj4hu9SL3vuP9GK8C9UH1X178EvSolbQwfIeZI67g2w9ABnYXIcnNW5ZYiEj5pq8I-K0zrqA_Tq4CZr3nBdu1I2tY-BNQNA=w1280",
+      },
+      { 
+        message: "You love me more than anyone else ever has, and I want to show appreciation for that every day.",
+        image: "https://lh3.googleusercontent.com/rduw54QoceKOPnsxMoDNwvXNEzJhlQqoQz6po4Wq-FO1WSn4yHoDu_UuBoonIL38dKvGtYgk6A2zHzPIjc-fS7Jv1d_R_mVBBH8sdbHEGY5Oj5hub9xs4-zWrXvfhI2CBg=w1280",
+      },
+      { 
+        message: "I love you more than anything I could even dream of. There’s nobody better I could imagine by my side - and I hope that I can make you feel special each and every day.",
+        image: "https://lh5.googleusercontent.com/0g0iEeP_-PGfz1Ku8xexMizPlT2D472oCp_8Vp6ILzyezL5pJ_BNH1loocDBGGfMuWGABrf-d1IFeopjUULgwH40593R1I6Iypgqmfys1bGsXKArSy-_QIrvqsz4vYzg2Q=w1280",
       }
-      // … Add additional objects here as needed …
     ];
     
-    // Get references to DOM elements.
     const messageEl = document.getElementById("message");
     const imageEl = document.getElementById("messageImage");
     const linkContainer = document.getElementById("linkContainer");
     
-    // Variable to store the index of the last shown content (to avoid duplicates)
-    let lastIndex = -1;
-    
-    // Function to randomly select and display content.
+    // Randomly select an item from the array and update the content.
     function setRandomContent() {
+      const randomIndex = Math.floor(Math.random() * contents.length);
+      const content = contents[randomIndex];
+      messageEl.textContent = content.message;
+      imageEl.src = content.image;
+      linkContainer.textContent = content.link;
+    }
+    
+    // Initialize content.
+    setRandomContent();
+    
+    // Change content when the message text is clicked.
+    messageEl.addEventListener("click", setRandomContent);
+  </script>
+  
+  <!-- Additional code: Ensure clicking the image also updates the content -->
+  <script>
+    imageEl.addEventListener("click", setRandomContent);
+    messageEl.addEventListener("click", setRandomContent);
+  </script>
+  
+  <!-- Additional Section: Set a static background image using a link -->
+  <script>
+    // Set a static background image instead of gray.
+    document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1530533718754-001d2668365a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMGJsdWV8ZW58MHx8MHx8fDA%3D')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
+  </script>
+  
+  <!-- Additional Code: Prevent two identical consecutive messages/images -->
+  <script>
+    let lastIndex = -1;
+    // Override the setRandomContent function with one that ensures uniqueness
+    const originalSetRandomContent = setRandomContent;
+    setRandomContent = function() {
       let newIndex;
       do {
         newIndex = Math.floor(Math.random() * contents.length);
       } while(newIndex === lastIndex);
       lastIndex = newIndex;
-      
       const content = contents[newIndex];
       messageEl.textContent = content.message;
       imageEl.src = content.image;
-      linkContainer.textContent = content.link || "";
-    }
-    
-    // Initialize content when the page loads.
-    setRandomContent();
-    
-    // Update content on click events.
-    messageEl.addEventListener("click", setRandomContent);
-    imageEl.addEventListener("click", setRandomContent);
-    
-    // Set a static background image.
-    document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1530533718754-001d2668365a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMGJsdWV8ZW58MHx8MHx8fDA%3D')";
-    
-    // Function to handle image load errors.
+      linkContainer.textContent = content.link;
+    };
+  </script>
+  
+  <!-- Additional JS snippet: handleImageError function -->
+  <script>
     function handleImageError(imageElement) {
+      // Option 1: Hide the image
       imageElement.style.display = 'none';
-      // Alternatively, you can replace with a placeholder image:
-      // imageElement.src = 'https://via.placeholder.com/450';
+      // Option 2: Replace with a placeholder image
+      // imageElement.src = 'https://via.placeholder.com/300';
     }
   </script>
 </body>
