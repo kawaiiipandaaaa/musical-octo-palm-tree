@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Random Message & Image with Copyable Link</title>
   <style>
+    /* Base styles for body and layout */
     body {
       margin: 0;
       padding: 0;
@@ -13,21 +14,34 @@
       align-items: center;
       justify-content: center;
       font-family: "Times New Roman";
-      background: #333;
       color: #FFF;
+      background: #333;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.5s ease-in-out;
     }
+    /* Styling the message container */
     #message {
-      font-size: 36px;
+      font-size: 50px;
       text-align: center;
+      cursor: pointer;
+      user-select: none;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 10px;
       margin-top: 20px;
     }
+    /* Styling the image; max-width increased to double its base size */
     img {
-      max-width: 450px;
+      max-width: 450px !important;
       height: auto;
       border-radius: 8px;
       display: block;
       margin-bottom: 10px;
     }
+    /* Styling for the copy-friendly link container */
     #linkContainer {
       font-size: 16px;
       background: #444;
@@ -39,44 +53,68 @@
   </style>
 </head>
 <body>
-  <img id="messageImage" src="" alt="Image" onerror="handleImageError(this)">
+  <!-- Image element with an onerror handler -->
+  <img id="messageImage" src="" alt="Random Image" onerror="handleImageError(this)">
+  <!-- Div to display the random message -->
   <div id="message"></div>
+  <!-- Div for a copyable link (if provided in your content objects) -->
   <div id="linkContainer"></div>
-
+  
   <script>
+    // Array of content objects – add or update these as needed.
     const contents = [
       { 
         message: "I love your style.",
-        image: "images/style.jpg"
+        image: "https://lh3.googleusercontent.com/efe4_gAIIzzVWYnQd38nA0qMAyCk61jfmWF2RwkE4vEbwPRJJpcwwKPjjkQc0HTPywSIAV62gmrM1LDGIBE9mGw9_dR-LwxU2fxezptmHlucN3WD5KmraKng9zhjHUkg-g=w1280"
       },
       { 
         message: "I love your voice, your eyes, and your smile.",
-        image: "images/voice-smile.jpg"
+        image: "https://lh3.googleusercontent.com/czJUy5ksXdgKgiSyP5rL_sRzo56rDFwOFEKzj4hu9SL3vuP9GK8C9UH1X178EvSolbQwfIeZI67g2w9ABnYXIcnNW5ZYiEj5pq8I-K0zrqA_Tq4CZr3nBdu1I2tY-BNQNA=w1280"
       },
       { 
         message: "I love how you want the best for me.",
-        image: "images/best-for-me.jpg"
+        image: "https://lh3.googleusercontent.com/rduw54QoceKOPnsxMoDNwvXNEzJhlQqoQz6po4Wq-FO1WSn4yHoDu_UuBoonIL38dKvGtYgk6A2zHzPIjc-fS7Jv1d_R_mVBBH8sdbHEGY5Oj5hub9xs4-zWrXvfhI2CBg=w1280"
       }
+      // … Add additional objects here as needed …
     ];
     
+    // Get references to DOM elements.
     const messageEl = document.getElementById("message");
     const imageEl = document.getElementById("messageImage");
+    const linkContainer = document.getElementById("linkContainer");
     
+    // Variable to store the index of the last shown content (to avoid duplicates)
+    let lastIndex = -1;
+    
+    // Function to randomly select and display content.
     function setRandomContent() {
-      const randomIndex = Math.floor(Math.random() * contents.length);
-      const content = contents[randomIndex];
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * contents.length);
+      } while(newIndex === lastIndex);
+      lastIndex = newIndex;
+      
+      const content = contents[newIndex];
       messageEl.textContent = content.message;
       imageEl.src = content.image;
+      linkContainer.textContent = content.link || "";
     }
     
+    // Initialize content when the page loads.
     setRandomContent();
+    
+    // Update content on click events.
     messageEl.addEventListener("click", setRandomContent);
     imageEl.addEventListener("click", setRandomContent);
-  </script>
-
-  <script>
+    
+    // Set a static background image.
+    document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1530533718754-001d2668365a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMGJsdWV8ZW58MHx8MHx8fDA%3D')";
+    
+    // Function to handle image load errors.
     function handleImageError(imageElement) {
       imageElement.style.display = 'none';
+      // Alternatively, you can replace with a placeholder image:
+      // imageElement.src = 'https://via.placeholder.com/450';
     }
   </script>
 </body>
