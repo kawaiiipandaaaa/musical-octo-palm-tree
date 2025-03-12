@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Message & Image with Copyable Link</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "Times New Roman";
+      background: #333;
+      color: #FFF;
+    }
+    #message {
+      font-size: 36px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    img {
+      max-width: 450px;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    #linkContainer {
+      font-size: 16px;
+      background: #444;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: text;
+      user-select: all;
+    }
+  </style>
+</head>
+<body>
+  <img id="messageImage" src="" alt="Image" onerror="handleImageError(this)">
+  <div id="message"></div>
+  <div id="linkContainer"></div>
+
+  <script>
+    const contents = [
+      { 
+        message: "I love your style.",
+        image: "images/style.jpg"
+      },
+      { 
+        message: "I love your voice, your eyes, and your smile.",
+        image: "images/voice-smile.jpg"
+      },
+      { 
+        message: "I love how you want the best for me.",
+        image: "images/best-for-me.jpg"
+      }
+    ];
+    
+    const messageEl = document.getElementById("message");
+    const imageEl = document.getElementById("messageImage");
+    
+    function setRandomContent() {
+      const randomIndex = Math.floor(Math.random() * contents.length);
+      const content = contents[randomIndex];
+      messageEl.textContent = content.message;
+      imageEl.src = content.image;
+    }
+    
+    setRandomContent();
+    messageEl.addEventListener("click", setRandomContent);
+    imageEl.addEventListener("click", setRandomContent);
+  </script>
+
+  <script>
+    function handleImageError(imageElement) {
+      imageElement.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
